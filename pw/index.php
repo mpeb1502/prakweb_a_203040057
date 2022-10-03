@@ -1,62 +1,114 @@
 <?php
-// koneksi ke database
-$conn = mysqli_connect("localhost", "root", "", "prakweb_a_203040057_pw");
+include('koneksi.php'); //agar index terhubung dengan database, maka koneksi sebagai penghubung harus di include
 
-// ambil dari tabel buku query
-$result = mysqli_query($conn, "SELECT * FROM buku");
-
-// ubah data ke dalam array
-// $row = mysqli_fetch_row($result); // array numerik
-// $row = mysqli_fetch_assoc($result); // array associative
-// $row = mysqli_fetch_array($result); // keduanya
-$rows = [];
-while ($row = mysqli_fetch_assoc($result)) {
-  $rows[] = $row;
-}
-// tampung ke variabel buku
-$bk = $rows;
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buku</title>
+  <title>Buku Idaman</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <style type="text/css">
+    * {
+      background-color: grey;
+      font-family: "Trebuchet MS";
+    }
 
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/style.css">
+    h1 {
+      color: black;
+    }
 
+    table {
+      border: solid 4px black;
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      margin: 10px auto 10px auto;
+    }
+
+    table thead th {
+      background-color: #DDEFEF;
+      border: solid 2px #DDEEEE;
+      color: black;
+      padding: 10px;
+      text-align: center;
+      text-shadow: 1px 1px 1px black;
+      text-decoration: none;
+    }
+
+    table tbody td {
+      border: solid 3px #DDEEEE;
+      color: black;
+      text-align: center;
+      padding: 10px;
+    }
+
+    a {
+      background-color: black;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      font-size: 15spx;
+    }
+  </style>
 </head>
 
 <body>
+  <center>
+    <h1><b><u>Buku Idaman</u></b></h1>
+    <center>
+      <br></br>
+      <center><a href="tambah_produk.php">+ &nbsp; Tambah Produk</a>
+        <center>
+          <br />
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Author</th>
+                <th>Jumlah Halaman</th>
+                <th>Harga</th>
+                <th>Gambar</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              // jalankan query untuk menampilkan semua data diurutkan berdasarkan nim
+              $query = "SELECT * FROM buku ORDER BY no ASC";
+              $result = mysqli_query($koneksi, $query);
+              //mengecek apakah ada error ketika menjalankan query
+              if (!$result) {
+                die("Query Error: " . mysqli_errno($koneksi) .
+                  " - " . mysqli_error($koneksi));
+              }
 
-  <h1 class="m-0">Daftar Buku</h1>
+              //buat perulangan untuk element tabel dari data mahasiswa
+              $no = 1; //variabel untuk membuat nomor urut
+              // hasil query akan disimpan dalam variabel $data dalam bentuk array
+              // kemudian dicetak dengan perulangan while
+              while ($row = mysqli_fetch_assoc($result)) {
+              ?>
+                <tr>
+                  <td><?php echo $no; ?></td>
+                  <td><?php echo $row['nama']; ?></td>
+                  <td><?php echo $row['author']; ?></td>
+                  <td><?php echo $row['jumlah_halaman']; ?></td>
+                  <td>Rp.<?php echo $row['harga']; ?></td>
+                  <td style="text-align: center;"><img src="gambar/<?php echo $row['gambar']; ?>" style="width: 120px;"></td>
+                  <td>
+                    <a class='btn btn-primary btn-sm' href="edit_produk.php?id=<?php echo $row['no']; ?>">Update Data</a>
+                    <a class='btn btn-danger btn-sm' href="proses_hapus.php?id=<?php echo $row['no']; ?>" onclick="return confirm('Anda yakin akan menghapus data ini?')">Hapus Data</a>
+                  </td>
+                </tr>
 
-  <table class="table table-primary mb-0">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Judul Buku</th>
-        <th scope="col">Penulis</th>
-        <th scope="col">Gambar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php $i = 1; ?>
-      <?php foreach ($bk as $rows) : ?>
-        <tr>
-          <th scope="row"><?= $rows["id_buku"]; ?></th>
-          <td><?= $rows["judul_buku"]; ?></td>
-          <td><?= $rows["penulis_buku"]; ?></td>
-          <td><img src="assets/img/<?= $rows["gambar_buku"]; ?>" width="100" alt=""></td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-  <script src="js/bootstrap.bundle.js"></script>
+              <?php
+                $no++; //untuk nomor urut terus bertambah 1
+              }
+              ?>
+            </tbody>
+          </table>
 </body>
 
 </html>
