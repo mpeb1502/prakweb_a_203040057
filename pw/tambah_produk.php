@@ -46,14 +46,14 @@ include('koneksi.php'); //agar index terhubung dengan database, maka koneksi seb
     }
 
     div {
-      width: 100%;
+      width: 80%;
       height: auto;
     }
 
     .base {
       width: 400px;
       height: auto;
-      padding: 20px;
+      padding: 30px;
       margin-left: auto;
       margin-right: auto;
       background: white;
