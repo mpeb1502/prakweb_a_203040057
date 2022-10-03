@@ -19,7 +19,7 @@ include('koneksi.php'); //agar index terhubung dengan database, maka koneksi seb
 
     button {
       background-color: black;
-      color: #fff;
+      color: white;
       padding: 10px;
       text-decoration: none;
       font-size: 12px;
@@ -56,7 +56,7 @@ include('koneksi.php'); //agar index terhubung dengan database, maka koneksi seb
       padding: 20px;
       margin-left: auto;
       margin-right: auto;
-      background: #ededed;
+      background: white;
     }
   </style>
 </head>

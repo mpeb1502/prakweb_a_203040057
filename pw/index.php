@@ -45,7 +45,7 @@ include('koneksi.php'); //agar index terhubung dengan database, maka koneksi seb
 
     a {
       background-color: black;
-      color: white;
+      color: red;
       padding: 10px;
       text-decoration: none;
       font-size: 15spx;
