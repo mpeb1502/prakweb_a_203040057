@@ -10,8 +10,8 @@ include('koneksi.php'); //agar index terhubung dengan database, maka koneksi seb
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <style type="text/css">
     * {
-      background-color: grey;
-      font-family: "Trebuchet MS";
+      background-color: yellow;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 
     h1 {
